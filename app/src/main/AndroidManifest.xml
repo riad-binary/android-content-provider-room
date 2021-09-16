@@ -11,6 +11,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Content_provider">
         <activity
+            android:name=".views.UserActivity"
+            android:exported="true" />
+        <activity
+            android:name=".views.BookActivity"
+            android:exported="true" />
+        <activity
             android:name=".views.MainActivity"
             android:exported="true">
             <intent-filter>
@@ -24,8 +30,7 @@
             android:name=".data.provider.DataProvider"
             android:authorities="com.riad.content_provider.provider"
             android:enabled="true"
-            android:exported="true"/>
-
+            android:exported="true" />
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.riad.content_provider.data.db
 
+import android.database.Cursor
 import com.riad.content_provider.App
 import com.riad.content_provider.data.db.dao.BookDao
 import com.riad.content_provider.data.db.entity.BookEntity
@@ -15,6 +16,10 @@ object BookRepository {
         return db.gelAllBooks()
     }
 
+    fun getAllBooksCursor(): Cursor {
+        return db.gelAllBooksCursor()
+    }
+
     // Insert new book
     fun insertBook(book: BookEntity): Completable {
         return db.insertBook(book)
@@ -22,6 +27,10 @@ object BookRepository {
 
     fun getBook(id: Int): Flowable<BookEntity> {
         return db.getBook(id)
+    }
+
+    fun getBookCursor(id: Int): Cursor {
+        return db.getBookCursor(id)
     }
 
     fun deleteBookById(id: Int): Completable {

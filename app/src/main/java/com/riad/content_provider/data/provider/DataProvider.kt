@@ -61,6 +61,16 @@ class DataProvider : ContentProvider() {
                 cursor.setNotificationUri(context?.contentResolver, uri)
                 cursor
             }
+            mUriMatcher.match(uri) == BOOKS -> {
+                val cursor = BookRepository.getAllBooksCursor()
+                cursor.setNotificationUri(context?.contentResolver, uri)
+                cursor
+            }
+            mUriMatcher.match(uri) == BOOKS_BY_ID -> {
+                val cursor = BookRepository.getBookCursor(uri.lastPathSegment!!.toInt())
+                cursor.setNotificationUri(context?.contentResolver, uri)
+                cursor
+            }
             else -> {
                 throw UnsupportedSchemeException("Uri UnsupportedSchemeException")
             }
