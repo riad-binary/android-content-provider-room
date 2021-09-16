@@ -19,6 +19,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name=".data.provider.DataProvider"
+            android:authorities="com.riad.content_provider.provider"
+            android:enabled="true"
+            android:exported="true"/>
+
     </application>
 
 </manifest>

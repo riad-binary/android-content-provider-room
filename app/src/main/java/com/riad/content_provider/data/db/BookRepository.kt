@@ -6,7 +6,7 @@ import com.riad.content_provider.data.db.entity.BookEntity
 import io.reactivex.Completable
 import io.reactivex.Flowable
 
-class BookRepository() {
+object BookRepository {
 
     var db: BookDao = AppDatabase.getInstance(App.instance)?.bookDao()!!
 
