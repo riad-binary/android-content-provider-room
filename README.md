@@ -1,2 +1,2 @@
-# android ContentProvider with kotlin room library, rxJava, multiple tables
+# android ContentProvider with kotlin, room library, rxJava, multiple tables
 
