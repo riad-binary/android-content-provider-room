@@ -31,6 +31,12 @@ interface UserDao {
     @Update
     fun updateUser(user: UserEntity): Completable
 
+    @Query("UPDATE Users SET username = :username WHERE id =:id")
+    fun updateUserName(username: String?, id: Int)
+
+    @Query("UPDATE Users SET username = :username WHERE username =:oldname")
+    fun updateUserByName(username: String?, oldname: String): Completable
+
     @Delete
     fun deleteUser(user: UserEntity): Completable
 

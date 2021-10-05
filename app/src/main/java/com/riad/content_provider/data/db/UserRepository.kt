@@ -44,6 +44,11 @@ object UserRepository {
         return db.updateUser(users)
     }
 
+    // update user
+    fun updateUserByName(username: String?, oldname: String): Completable {
+        return db.updateUserByName(username, oldname)
+    }
+
     // Delete user
     fun deleteUser(users: UserEntity): Completable {
         return db.deleteUser(users)

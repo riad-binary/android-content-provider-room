@@ -24,6 +24,7 @@
                 android:id="@+id/edit_user_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="number"
                 android:hint="user id"/>
 
             <Button
@@ -49,18 +50,73 @@
             android:layout_marginTop="10dp"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/edit_username"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="user name"/>
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/button_insert_user"
+                <EditText
+                    android:id="@+id/edit_update_user_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="update/delete id"
+                    android:inputType="number"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"/>
+
+                <EditText
+                    android:id="@+id/edit_old_user_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="old user name (optional)"
+                    android:inputType="text"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"/>
+
+                <EditText
+                    android:id="@+id/edit_username"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="user name"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="insert user"/>
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/button_insert_user"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="5dp"
+                    android:text="insert user"/>
+
+                <Button
+                    android:id="@+id/button_update_user"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:text="update user"/>
+
+                <Button
+                    android:id="@+id/button_delete_user"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:text="delete user"/>
+
+            </LinearLayout>
+
 
             <Button
                 android:id="@+id/button_get_all_user"

@@ -16,6 +16,7 @@ object PrivderConstants {
 
     const val USERS = 1
     const val USERS_BY_ID = 2
+    const val USERS_BY_STRING = 5
     const val BOOKS = 3
     const val BOOKS_BY_ID = 4
 

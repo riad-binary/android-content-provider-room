@@ -20,6 +20,7 @@ import com.riad.content_provider.data.provider.PrivderConstants.KEY_BOOK
 import com.riad.content_provider.data.provider.PrivderConstants.KEY_USER
 import com.riad.content_provider.data.provider.PrivderConstants.USERS
 import com.riad.content_provider.data.provider.PrivderConstants.USERS_BY_ID
+import com.riad.content_provider.data.provider.PrivderConstants.USERS_BY_STRING
 import com.riad.content_provider.data.provider.PrivderConstants.USER_PATH
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -32,6 +33,7 @@ class DataProvider : ContentProvider() {
         mUriMatcher = UriMatcher(UriMatcher.NO_MATCH)
         mUriMatcher.addURI(AUTHORITY, USER_PATH, USERS)
         mUriMatcher.addURI(AUTHORITY, "$USER_PATH/#", USERS_BY_ID)
+        mUriMatcher.addURI(AUTHORITY, "$USER_PATH/*", USERS_BY_STRING)
         mUriMatcher.addURI(AUTHORITY, BOOK_PATH, BOOKS)
         mUriMatcher.addURI(AUTHORITY, "$BOOK_PATH/#", BOOKS_BY_ID)
 
@@ -145,12 +147,99 @@ class DataProvider : ContentProvider() {
         }
     }
 
-    override fun delete(p0: Uri, p1: String?, p2: Array<out String>?): Int {
+    override fun delete(uri: Uri, p1: String?, p2: Array<out String>?): Int {
         TODO("Not yet implemented")
     }
 
-    override fun update(p0: Uri, p1: ContentValues?, p2: String?, p3: Array<out String>?): Int {
-        TODO("Not yet implemented")
+    override fun update(uri: Uri, values: ContentValues?, selection: String?, selectionArgs: Array<out String>?): Int {
+        Log.e(
+            "rrr",
+            "DataProvider update uri:  " + uri
+        )
+        if (mUriMatcher.match(uri) == USERS_BY_ID) {
+
+            val user = Gson().fromJson(
+                values?.get(KEY_USER).toString(),
+                UserEntity::class.java
+            )
+            Log.e(
+                "rrr",
+                "DataProvider UpdateUser user:  " + user
+            )
+
+            var disposable = UserRepository.updateUser(user)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        Log.e("rrr", "DataProvider updateUser complete:  ")
+                        context?.contentResolver?.notifyChange(uri, null)
+                    },
+                    {
+                        Log.e("rrr", "DataProvider updateUser error:" + it.message)
+                    }
+                )
+
+
+
+            return 1
+        } else if (mUriMatcher.match(uri) == USERS_BY_STRING) {
+
+            val user = Gson().fromJson(
+                values?.get(KEY_USER).toString(),
+                UserEntity::class.java
+            )
+            Log.e(
+                "rrr",
+                "DataProvider updateUserByName user:  " + user
+            )
+
+            var disposable = UserRepository.updateUserByName(user.userName, uri.lastPathSegment!!)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        Log.e("rrr", "DataProvider updateUserByName complete:  ")
+                        context?.contentResolver?.notifyChange(uri, null)
+                    },
+                    {
+                        Log.e("rrr", "DataProvider updateUserByName error:" + it.message)
+                    }
+                )
+
+
+
+            return 1
+        } else if (mUriMatcher.match(uri) == BOOKS_BY_ID) {
+
+            val book = Gson().fromJson(
+                values?.get(KEY_BOOK).toString(),
+                BookEntity::class.java
+            )
+            Log.e(
+                "rrr",
+                "DataProvider insertBook book:  " + book
+            )
+
+            var disposable = BookRepository.updateBook(book)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        Log.e("rrr", "DataProvider updateBook complete:  ")
+                        context?.contentResolver?.notifyChange(uri, null)
+                    },
+                    {
+                        Log.e("rrr", "DataProvider updateBook error:" + it.message)
+                    }
+                )
+
+
+
+            return 1
+        } else {
+            throw UnsupportedSchemeException("Uri invalid")
+        }
     }
 
 }
